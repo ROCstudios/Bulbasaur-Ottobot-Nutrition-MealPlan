@@ -63,8 +63,8 @@ Replace `8080:8080` with the port mapping appropriate for your application.
 ## 1. Grant Storage Access
 Grant the Compute Engine service account the `roles/storage.objectUser` role to interact with storage objects:
 ```bash
-gcloud projects add-iam-policy-binding constant-blend-398005 \
-    --member=serviceAccount:$(gcloud projects describe constant-blend-398005 \
+gcloud projects add-iam-policy-binding natural-quasar-473511-v6 \
+    --member=serviceAccount:$(gcloud projects describe natural-quasar-473511-v6 \
     --format="value(projectNumber)")-compute@developer.gserviceaccount.com \
     --role="roles/storage.objectUser"
 ```
@@ -72,8 +72,8 @@ gcloud projects add-iam-policy-binding constant-blend-398005 \
 ## 2. Grant Write Access to Artifact Registry
 Grant the Compute Engine service account the `roles/artifactregistry.writer` role to push Docker images:
 ```bash
-gcloud projects add-iam-policy-binding constant-blend-398005 \
-    --member=serviceAccount:$(gcloud projects describe constant-blend-398005 \
+gcloud projects add-iam-policy-binding natural-quasar-473511-v6 \
+    --member=serviceAccount:$(gcloud projects describe natural-quasar-473511-v6 \
     --format="value(projectNumber)")-compute@developer.gserviceaccount.com \
     --role="roles/artifactregistry.writer"
 ```
@@ -81,8 +81,8 @@ gcloud projects add-iam-policy-binding constant-blend-398005 \
 ## 3. Grant Cloud Run Admin Permissions
 Grant the Compute Engine service account the `roles/run.admin` role to manage Cloud Run services:
 ```bash
-gcloud projects add-iam-policy-binding constant-blend-398005 \
-    --member=serviceAccount:$(gcloud projects describe constant-blend-398005 \
+gcloud projects add-iam-policy-binding natural-quasar-473511-v6 \
+    --member=serviceAccount:$(gcloud projects describe natural-quasar-473511-v6 \
     --format="value(projectNumber)")-compute@developer.gserviceaccount.com \
     --role="roles/run.admin"
 ```
@@ -113,7 +113,7 @@ gcloud artifacts repositories list
 Use the following command to build and push your Docker image to Artifact Registry. Replace `[PROJECT_ID]` with your GCP project ID:
 ```bash
 gcloud builds submit --region=asia-east1 \
-    --tag asia-east1-docker.pkg.dev/constant-blend-398005/ottobot-docker-repo-prod/ottobot-prod:latest
+    --tag asia-east1-docker.pkg.dev/natural-quasar-473511-v6/ottobot-docker-repo-prod/ottobot-prod:latest
 ```
 
 ---
@@ -124,7 +124,7 @@ gcloud builds submit --region=asia-east1 \
 Deploy the Docker image from Artifact Registry to Cloud Run. Replace `[PROJECT_ID]` with your GCP project ID:
 ```bash
 gcloud run deploy ottobot-service-prod \
-    --image asia-east1-docker.pkg.dev/constant-blend-398005/ottobot-docker-repo-prod/ottobot-prod:latest \
+    --image asia-east1-docker.pkg.dev/natural-quasar-473511-v6/ottobot-docker-repo-prod/ottobot-prod:latest \
     --region asia-east1 \
     --platform managed \
     --allow-unauthenticated
@@ -140,9 +140,9 @@ After deployment, Cloud Run will provide a public URL for your service. Open the
 ## Validate IAM Policies
 Verify the roles assigned to the Compute Engine service account:
 ```bash
-gcloud projects get-iam-policy constant-blend-398005 \
+gcloud projects get-iam-policy natural-quasar-473511-v6 \
     --flatten="bindings[].members" \
-    --filter="bindings.members:$(gcloud projects describe constant-blend-398005 --format="value(projectNumber)")-compute@developer.gserviceaccount.com" \
+    --filter="bindings.members:$(gcloud projects describe natural-quasar-473511-v6 --format="value(projectNumber)")-compute@developer.gserviceaccount.com" \
     --format="table(bindings.role)"
 ```
 
